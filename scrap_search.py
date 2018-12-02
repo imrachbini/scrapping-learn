@@ -24,6 +24,8 @@ writer.writeheader()
 
 inputfile = open("daftar_daerah.csv")
 reader = csv.DictReader(inputfile)
+
+count = 0
 for row in reader:
     kode_kabupaten = row['kode_kabupaten']
     nama_kabupaten = row['nama_kabupaten']
@@ -54,10 +56,11 @@ for row in reader:
                     break
 
                 for sekolah in sekolah_list:
+                    count += 1
                     nama_sekolah = sekolah.text
                     kode_sekolah = nama_sekolah[nama_sekolah.find("(")+1:nama_sekolah.find(")")]
                     link_page_sekolah = sekolah['href']
-                    print(kode_sekolah + ' ' + nama_sekolah)
+                    print(str(count) + ' ' + kode_sekolah + ' ' + nama_sekolah)
 
                     output_row = {
                         'kode_kabupaten': kode_kabupaten,
