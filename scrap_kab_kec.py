@@ -3,7 +3,7 @@ import sys
 import requests
 from bs4 import BeautifulSoup
 
-f = open("daftar_kab_kec.csv","w+")
+f = open("daftar_daerah.csv","w+")
 f.write('kode_kab,kabupaten,kode_kec,kecamatan\n')
 
 HOME_URL = 'http://sekolah.data.kemdikbud.go.id/'
