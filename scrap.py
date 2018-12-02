@@ -3,6 +3,9 @@ import sys
 import requests
 from bs4 import BeautifulSoup
 
+f = open("daftar_kab_kec.csv","w+")
+f.write('kode_kab,kabupaten,kode_kec,kecamatan\n')
+
 HOME_URL = 'http://sekolah.data.kemdikbud.go.id/'
 KEC_URL = HOME_URL + 'chome/kecamatan/'
 
@@ -22,6 +25,8 @@ for option in kota_options:
         data={'kode_kabupaten': str(value)})
     kec_soup = BeautifulSoup(kec_page.content, 'html.parser')
     kec_options = kec_soup.find(id='kode_kec').find_all('option')
+    if len(kec_options) <= 3:
+        f.write('{},"{}",,\n'.format(value, text))
 
     kec_count = 0
     for kec_option in kec_options:
@@ -31,11 +36,4 @@ for option in kota_options:
             continue
 
         print('    ' + kec_value + ' ' + kec_text)
-
-        kec_count += 1
-        if kec_count == 10:
-            break
-
-    count += 1
-    if count == 10:
-        break
+        f.write('{},"{}",{},"{}"\n'.format(value, text, kec_value, kec_text))
